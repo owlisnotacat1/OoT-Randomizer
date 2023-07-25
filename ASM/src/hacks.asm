@@ -79,7 +79,7 @@ Gameplay_InitSkybox:
 .org 0x800B8898
     addiu   t2, t2, lo(AUDIOBANK_TABLE_EXTENDED)
 
-; Hacks to increase the number of audio banks from 0x30 to 0x80
+; Hacks to increase the number of audio banks from 0x30 to 0xA0
 ; Hacks in AudioHeap_ResetLoadStatus
 ; This loop is annoying because it hardcodes the start and end addresses of fontLoadStatus array instead of calculating it.
 ; v0 - start of array
@@ -91,7 +91,7 @@ Gameplay_InitSkybox:
     ; addiu v0, v0 0x5660
     ; addiu v1, v1, 0x5630
     li      v1, FONTLOADSTATUS_EXTENDED
-    li      v0, FONTLOADSTATUS_EXTENDED + 0x80
+    li      v0, FONTLOADSTATUS_EXTENDED + 0xA0
 
 .org 0x800B3554
     ; Replaces:
