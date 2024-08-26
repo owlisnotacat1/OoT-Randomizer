@@ -1,6 +1,7 @@
 #ifndef Z64_H
 #define Z64_H
 #include <stdint.h>
+#include "stdint.h"
 #include <n64.h>
 #include "z64_math.h"
 #include "color.h"
