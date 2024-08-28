@@ -47,7 +47,7 @@ bgm_sequence_ids: tuple[tuple[str, int], ...] = (
     ("Spirit Temple", 0x3F),
     ("Horse Race", 0x40),
     ("Ingo Theme", 0x42),
-    ("Fairy Flying", 0x4A),
+    ("Low HP", 0x4A),
     ("Deku Tree", 0x4B),
     ("Windmill Hut", 0x4C),
     ("Shooting Gallery", 0x4E),
