@@ -5269,7 +5269,6 @@ class SettingInfos:
             Change the music when being low on HP.
         ''',
     )
-    #slowdown_music_when_lowhp
 
     sfx_silver_rupee = Combobox(
         gui_text       = 'Silver Rupee Jingle',

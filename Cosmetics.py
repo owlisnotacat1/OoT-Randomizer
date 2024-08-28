@@ -944,9 +944,19 @@ def patch_music_changes(rom: Rom, settings: Settings, log: CosmeticsLog, symbols
 
     if settings.low_hp_music == 'slow_music_when_lowhp':
         rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x01)
-    elif settings.low_hp_music == 'custom_music_when_low_hp':
-        rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
-    else:
+    # If generating from patch, do a version check to make sure low HP music is supported.
+    if settings.low_hp_music == 'custom_music_when_low_hp':
+        if settings.patch_file != '':
+            rom_version_bytes = rom.read_version_bytes()
+            rom_version = f'{rom_version_bytes[0]}.{rom_version_bytes[1]}.{rom_version_bytes[2]}'
+            if compare_version(rom_version, '8.1.80') > 0:
+                rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
+            else:
+                log.errors.append("Custom low HP is not supported by this patch version. Setting to default.")
+                rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x00)
+        else:
+            rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
+    if settings.low_hp_music == 'default':
         rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x00)
     log.low_hp_music = settings.low_hp_music
 
@@ -1011,7 +1021,6 @@ patch_sets: dict[int, dict[str, Any]] = {}
 global_patch_sets: list[Callable[[Rom, Settings, CosmeticsLog, dict[str, int]], None]] = [
     patch_targeting,
     patch_music,
-    patch_music_changes,
     patch_tunic_colors,
     patch_navi_colors,
     patch_sword_trails,
