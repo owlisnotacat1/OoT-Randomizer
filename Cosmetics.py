@@ -942,11 +942,13 @@ def patch_music_changes(rom: Rom, settings: Settings, log: CosmeticsLog, symbols
         rom.write_byte(symbols['CFG_SPEEDUP_MUSIC_FOR_LAST_TRIFORCE_PIECE'], 0x00)
     log.speedup_music_for_last_triforce_piece = settings.speedup_music_for_last_triforce_piece
 
-    if settings.slowdown_music_when_lowhp:
+    if settings.low_hp_music == 'slow_music_when_lowhp':
         rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x01)
+    elif settings.low_hp_music == 'custom_music_when_low_hp':
+        rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
     else:
         rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x00)
-    log.slowdown_music_when_lowhp = settings.slowdown_music_when_lowhp
+    log.low_hp_music = settings.low_hp_music
 
 def patch_correct_model_colors(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: dict[str, int]) -> None:
     if settings.correct_model_colors:
@@ -1009,6 +1011,7 @@ patch_sets: dict[int, dict[str, Any]] = {}
 global_patch_sets: list[Callable[[Rom, Settings, CosmeticsLog, dict[str, int]], None]] = [
     patch_targeting,
     patch_music,
+    patch_music_changes,
     patch_tunic_colors,
     patch_navi_colors,
     patch_sword_trails,

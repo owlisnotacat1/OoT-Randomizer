@@ -70,37 +70,15 @@ Gameplay_InitSkybox:
     nop
 .endarea
 
-;==================================================================================================
-; Allocate Memory For AdsrState->sub data
-;==================================================================================================
-
-.org 0x800B55C8
-    ; replaces
-    ; nop
-    ; nop
-    jal AudioHeap_Init_AdsrSubData
-    nop
 
 ;==================================================================================================
-; Hook new Audio_AdsrInit Function 
+; Hook func_800F6964
 ;==================================================================================================
-.org 0x800BC458
-    ; replaces
-    ; jal     0x800BE5A4
-    jal Audio_AdsrInit
 
-.org 0x800BC470
+.org 0x8009B114
     ; replaces
-    ; jal     0x800BE5A4
-    jal     Audio_AdsrInit
-
-;==================================================================================================
-; Hook new Audio_AdsrUpdate Function
-;==================================================================================================
-.org 0x800BC844
-    ; replaces
-    ; jal     func_800BE5C4
-    jal     Audio_AdsrUpdate
+    ; jal 0x800C7684
+    jal func_800F6964
 
 ;==================================================================================================
 ; Increase Number of Audio Banks, and Audiotable (samples)
@@ -4188,3 +4166,5 @@ DemoEffect_DrawJewel_AfterHook:
 .include "hacks/ovl_obj_mure3.asm"
 .include "hacks/z_parameter.asm"
 .include "hacks/z_file_choose.asm"
+.include "hacks/z_player.asm"
+.include "hacks/z_en_river_sound.asm"

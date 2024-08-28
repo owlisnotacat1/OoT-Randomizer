@@ -96,6 +96,7 @@ CFG_SONG_NAME_STATE:
 .area 0xA5A, 0
 CFG_SONG_NAMES:
 .endarea
+
 CFG_SHOW_SETTING_INFO:
 .byte 0x00
 
@@ -311,5 +312,4 @@ SPECIAL_DEAL_COUNTS:
 .area 9 * 0x17, 0x20
 CFG_DUNGEON_REWARD_AREAS:
 .endarea
-
 .align 4
