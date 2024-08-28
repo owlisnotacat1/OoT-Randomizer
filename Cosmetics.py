@@ -949,11 +949,12 @@ def patch_music_changes(rom: Rom, settings: Settings, log: CosmeticsLog, symbols
         if settings.patch_file != '':
             rom_version_bytes = rom.read_version_bytes()
             rom_version = f'{rom_version_bytes[0]}.{rom_version_bytes[1]}.{rom_version_bytes[2]}'
-            if compare_version(rom_version, '8.1.80') > 0:
-                rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
-            else:
+            # needs to match current version when pr is closed
+            if compare_version(rom_version, '8.1.80') < 0:
                 log.errors.append("Custom low HP is not supported by this patch version. Setting to default.")
                 rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x00)
+            else:
+                rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
         else:
             rom.write_byte(symbols['CFG_SLOWDOWN_MUSIC_WHEN_LOWHP'], 0x02)
     if settings.low_hp_music == 'default':
