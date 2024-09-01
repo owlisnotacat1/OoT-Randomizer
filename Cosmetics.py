@@ -52,9 +52,6 @@ def patch_music(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: dict[s
         Music.randomize_music(rom, settings, log, symbols)
     else:
         Music.restore_music(rom)
-    # Remove battle music
-    if settings.disable_battle_music:
-        rom.write_byte(0xBE447F, 0x00)
 
 
 def patch_model_colors(rom: Rom, color: Optional[list[int]], model_addresses: tuple[list[int], list[int], list[int]]) -> None:
@@ -1013,6 +1010,14 @@ def patch_song_names(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: d
     rom.write_bytes(symbols['CFG_SONG_NAMES'], bytes_to_write)
     log.display_custom_song_names = settings.display_custom_song_names
 
+def patch_battle_music(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: dict[str, int]) -> None:
+    raise Exception(f'bruh')
+    if settings.disable_battle_music:
+        rom.write_byte(symbols['CFG_DISABLE_BATTLE_MUSIC'], 0x01)
+    else:
+        rom.write_byte(symbols['CFG_DISABLE_BATTLE_MUSIC'], 0x01)
+    #log.disable_battle_music = settings.disable_battle_music
+
 legacy_cosmetic_data_headers: list[int] = [
     0x03481000,
     0x03480810,
@@ -1228,6 +1233,18 @@ patch_sets[0x1F073FE2] = {
         **patch_sets[0x1F073FE1]["symbols"],
         "CFG_SONG_NAME_STATE": 0x006C,
         "CFG_SONG_NAMES": 0x006D,
+    }
+}
+
+# update when merged
+# 8.1.80
+patch_sets[0x1F073FE3] = {
+    "patches": patch_sets[0x1F073FE2]["patches"] + [
+        patch_battle_music,
+    ],
+    "symbols": {
+        **patch_sets[0x1F073FE2]["symbols"],
+        "CFG_DISABLE_BATTLE_MUSIC": 0x0AC7,
     }
 }
 

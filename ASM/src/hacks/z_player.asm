@@ -29,4 +29,4 @@
     ; replaces
     ; jal     0x800C7684
     jal      func_800F6964
-    
+

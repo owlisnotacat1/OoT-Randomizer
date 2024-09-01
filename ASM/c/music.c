@@ -5,6 +5,7 @@ extern uint8_t CFG_SPEEDUP_MUSIC_FOR_LAST_TRIFORCE_PIECE;
 extern uint8_t CFG_SLOWDOWN_MUSIC_WHEN_LOWHP;
 extern char CFG_SONG_NAMES[];
 extern uint8_t CFG_SONG_NAME_STATE;
+extern uint8_t CFG_DISABLE_BATTLE_MUSIC;
 
 static uint16_t previousSeqIndexChange = 0;
 static uint8_t isSlowedDown = 0;
@@ -64,10 +65,10 @@ void Audio_PlaySariaBgm(Vec3f* pos, u16 seqId, u16 distMax) {
     }
 
     if (seqId != 40) {
-        
+
         Audio_SplitBgmChannels(vol);
     }
-    
+
     Audio_SetVolumeScale(SEQ_PLAYER_BGM_SUB, 3, vol, 0);
     Audio_SetVolumeScale(SEQ_PLAYER_BGM_MAIN, 3, 0x7F - vol, 0);
 }
@@ -110,14 +111,17 @@ uint8_t update_seq_mode_hook(z64_game_t* play) {
     u8 seqMode = 0xFF;
     if (play->bgmEnemy != NULL) {
         if (CFG_SLOWDOWN_MUSIC_WHEN_LOWHP == 2) {
-
             if (!Health_IsCritical()) {
+                if (!CFG_DISABLE_BATTLE_MUSIC) {
+                    seqMode = 1;
+                    Audio_SetBgmEnemyVolume(z64_sqrtf(play->bgmEnemy->distsq_from_link));
+                }
+            }
+        } else {
+            if (!CFG_DISABLE_BATTLE_MUSIC) {
                 seqMode = 1;
                 Audio_SetBgmEnemyVolume(z64_sqrtf(play->bgmEnemy->distsq_from_link));
             }
-        } else {
-            seqMode = 1;
-            Audio_SetBgmEnemyVolume(z64_sqrtf(play->bgmEnemy->distsq_from_link));
         }
     }
     return seqMode;
