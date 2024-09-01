@@ -1011,7 +1011,6 @@ def patch_song_names(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: d
     log.display_custom_song_names = settings.display_custom_song_names
 
 def patch_battle_music(rom: Rom, settings: Settings, log: CosmeticsLog, symbols: dict[str, int]) -> None:
-    raise Exception(f'bruh')
     if settings.disable_battle_music:
         rom.write_byte(symbols['CFG_DISABLE_BATTLE_MUSIC'], 0x01)
     else:
