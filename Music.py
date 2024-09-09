@@ -244,7 +244,7 @@ def process_sequences(rom: Rom, ids: Iterable[tuple[str, int]], seq_type: str = 
                     seq_file = None
                     zbank_file = None
                     bankmeta_file = None
-                    for f in zip.namelist(): 
+                    for f in zip.namelist():
                         if '/' in f: # Only read files in the root of the archive
                             continue   
                         if f.endswith(".meta"):
