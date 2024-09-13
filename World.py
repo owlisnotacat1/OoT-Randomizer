@@ -75,6 +75,8 @@ class World:
         )
 
         self.mixed_pools_bosses = False # this setting is still in active development at https://github.com/Roman971/OoT-Randomizer
+        # in these settings, there's not necessarily one dungeon reward in each main dungeon, so compasses and the pause menu switch to a different behavior
+        self.entrance_rando_reward_hints = self.mixed_pools_bosses or self.settings.shuffle_ganon_tower or self.settings.shuffle_dungeon_rewards not in ('vanilla', 'reward')
 
         self.ensure_tod_access: bool = bool(self.shuffle_interior_entrances or settings.shuffle_overworld_entrances or settings.spawn_positions)
         self.disable_trade_revert: bool = self.shuffle_interior_entrances or settings.shuffle_overworld_entrances or settings.adult_trade_shuffle
