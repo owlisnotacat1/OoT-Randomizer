@@ -2221,6 +2221,10 @@ def patch_rom(spoiler: Spoiler, world: World, rom: Rom) -> Rom:
     # Meg respawns after 30 frames instead of 100 frames after getting hit
     rom.write_byte(0xCDA723, 0x1E)
 
+    # Boss doors side range (1.0 value is 0x46)
+    # This was reduced to 0x32 in 1.1, likely to fix the Phantom Ganon door bug.
+    rom.write_byte(0xC57AE2, 0x32)
+
     # actually write the save table to rom
     world.distribution.give_items(world, save_context)
     if world.settings.starting_age == 'adult':
