@@ -2222,7 +2222,8 @@ def patch_rom(spoiler: Spoiler, world: World, rom: Rom) -> Rom:
     rom.write_byte(0xCDA723, 0x1E)
 
     # Boss doors side range (1.0 value is 0x46)
-    # This was reduced to 0x32 in 1.1, likely to fix the Phantom Ganon door bug.
+    # This was reduced to 0x32 in 1.1, either to fix the Phantom Ganon door bug or just to match better visually the door textures.
+    # See https://github.com/OoTRandomizer/OoT-Randomizer/pull/2331 for more information.
     rom.write_byte(0xC57AE2, 0x32)
 
     # actually write the save table to rom
