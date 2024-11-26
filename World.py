@@ -343,6 +343,9 @@ class World:
                 if goal_list1 != [goal.name for goal in category.goals] and category.name not in minor_goal_categories:
                     self.one_hint_per_goal = False
 
+        if 'one_hint_per_goal' in self.hint_dist_user:
+            self.one_hint_per_goal = self.hint_dist_user['one_hint_per_goal']
+
         # initialize category check for first rounds of goal hints
         self.hinted_categories = []
 
@@ -664,7 +667,7 @@ class World:
         item_dict = defaultdict(list)
         for item in items:
             item_dict[item.name].append(item)
-            if (self.settings.shuffle_hideoutkeys in ('fortress', 'regional') and item.type == 'HideoutSmallKey') or (self.settings.shuffle_tcgkeys == 'regional' and item.type == 'TCGSmallKey'):
+            if (self.settings.shuffle_hideoutkeys in ('fortress', 'regional') and item.type in ('HideoutSmallKey', 'HideoutSmallKeyRing')) or (self.settings.shuffle_tcgkeys == 'regional' and item.type in ('TCGSmallKey', 'TCGSmallKeyRing')):
                 item.priority = True
 
         for dungeon in self.dungeons:
@@ -838,6 +841,18 @@ class World:
                     dot_items.append({'name': 'Song of Time', 'quantity': 2 if self.settings.shuffle_song_items == 'any' and self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
                     if self.settings.shuffle_ocarinas:
                         dot_items.append({'name': 'Ocarina', 'quantity': 3 if self.settings.item_pool_value == 'plentiful' else 2, 'minimum': 1, 'hintable': True})
+                    if self.settings.shuffle_individual_ocarina_notes:
+                        notes = str(self.song_notes['Song of Time'])
+                        if 'A' in notes:
+                            dot_items.append({'name': 'Ocarina A Button', 'quantity': 2 if self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
+                        if 'v' in notes:
+                            dot_items.append({'name': 'Ocarina C down Button', 'quantity': 2 if self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
+                        if '>' in notes:
+                            dot_items.append({'name': 'Ocarina C right Button', 'quantity': 2 if self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
+                        if '<' in notes:
+                            dot_items.append({'name': 'Ocarina C left Button', 'quantity': 2 if self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
+                        if '^' in notes:
+                            dot_items.append({'name': 'Ocarina C up Button', 'quantity': 2 if self.settings.item_pool_value == 'plentiful' else 1, 'minimum': 1, 'hintable': True})
                 dot.add_goal(Goal(self, 'Door of Time', 'path of #time#', 'Light Blue', items=dot_items))
                 self.goal_categories[dot.name] = dot
 
