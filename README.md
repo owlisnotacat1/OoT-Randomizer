@@ -117,7 +117,6 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * New hidden `plandomized_locations` setting to allow presets to place specific items at specific locations.
 * New setting to speed up the boat ride in the Shadow Temple.
 * New `Require Lens of Truth for Treasure Chest Game` setting.
-* The cutscene that plays when Morpha is defeated has been shortened from around 30 seconds to around 5 seconds.
 
 #### Bug fixes
 
@@ -135,6 +134,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Seeds rolled on ootrandomizer.com display their ID in the top left corner of the file select screen.
 * The `Other` tab of the generator has been rearranged for better grouping of settings, and the `One Major Item per Dungeon` setting has been moved there since it was causing frequent failures with `Randomize Main Rule Settings`.
 * Biggoron's text after turning in the Eyedrops has been changed to avoid potential confusion.
+* The cutscene that plays when Morpha is defeated has been shortened from around 30 seconds to around 5 seconds.
 
 ### 8.2
 
