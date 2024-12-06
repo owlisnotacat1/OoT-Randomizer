@@ -120,7 +120,6 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * New option `Market Big Poes` for the `Misc. Hints` setting.
 
 #### Bug fixes
-
 * Ocarina buttons required to play the Song of Time are now part of the `path of time` goal.
 * The `Frogs Ocarina Game` misc. hint text box has been moved slightly so it no longer requires reloading the area to reread.
 * Fix key rings being hinted as small keys when keys are in their own dungeons.
@@ -128,14 +127,17 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Fix a possible void out at the Forest Temple boss door.
 * Fix importing settings from older versions on web.
 
+#### New Speedups
+* The first text box from each carpenter in the Thieves' Hideout is skipped.
+* The cutscene that plays when Morpha is defeated has been shortened from around 30 seconds to around 5 seconds.
+* The cutscene introducing the arena where Ganon is fought is shortened by 5 seconds and the camera angle after it is improved.
+
 #### Other Changes
 * Now supports custom music written for the Majora's Mask Randomizer.
 * New Magic Meter item model to allow magic drops to be shuffled in the future.
-* The first text box from each carpenter in the Thieves' Hideout is skipped.
 * Seeds rolled on ootrandomizer.com display their ID in the top left corner of the file select screen.
 * The `Other` tab of the generator has been rearranged for better grouping of settings, and the `One Major Item per Dungeon` setting has been moved there since it was causing frequent failures with `Randomize Main Rule Settings`.
 * Biggoron's text after turning in the Eyedrops has been changed to avoid potential confusion.
-* The cutscene that plays when Morpha is defeated has been shortened from around 30 seconds to around 5 seconds.
 * Clarified the hint text for `HF Inside Fence Grotto`.
 
 ### 8.2
