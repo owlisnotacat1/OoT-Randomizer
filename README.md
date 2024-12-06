@@ -135,6 +135,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * The `Other` tab of the generator has been rearranged for better grouping of settings, and the `One Major Item per Dungeon` setting has been moved there since it was causing frequent failures with `Randomize Main Rule Settings`.
 * Biggoron's text after turning in the Eyedrops has been changed to avoid potential confusion.
 * The cutscene that plays when Morpha is defeated has been shortened from around 30 seconds to around 5 seconds.
+* Clarified the hint text for `HF Inside Fence Grotto`.
 
 ### 8.2
 
