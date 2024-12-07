@@ -143,6 +143,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Clarified the hint text for `HF Inside Fence Grotto`.
 * Farore's Wind now displays which dungeon it will warp Link to.
 * Reversed the order of the hints in the `Spirit Temple Adult Lower` dual hint.
+* Add adult and child trade items to the auto-tracker context.
 
 ### 8.2
 
