@@ -139,6 +139,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * The `Other` tab of the generator has been rearranged for better grouping of settings, and the `One Major Item per Dungeon` setting has been moved there since it was causing frequent failures with `Randomize Main Rule Settings`.
 * Biggoron's text after turning in the Eyedrops has been changed to avoid potential confusion.
 * Clarified the hint text for `HF Inside Fence Grotto`.
+* Farore's Wind now displays which dungeon it will warp Link to.
 
 ### 8.2
 
