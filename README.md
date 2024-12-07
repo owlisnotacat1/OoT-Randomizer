@@ -126,6 +126,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Fix a crash when pressing down on the D-pad on the inventory screen in some settings combinations.
 * Fix a possible void out at the Forest Temple boss door.
 * Fix importing settings from older versions on web.
+* Fix a Mac-specific issue when loading track .meta files.
 
 #### New Speedups
 * The first text box from each carpenter in the Thieves' Hideout is skipped.
