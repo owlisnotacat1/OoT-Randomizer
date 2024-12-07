@@ -140,6 +140,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Biggoron's text after turning in the Eyedrops has been changed to avoid potential confusion.
 * Clarified the hint text for `HF Inside Fence Grotto`.
 * Farore's Wind now displays which dungeon it will warp Link to.
+* Reversed the order of the hints in the `Spirit Temple Adult Lower` dual hint.
 
 ### 8.2
 
