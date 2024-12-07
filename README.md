@@ -127,6 +127,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Fix a possible void out at the Forest Temple boss door.
 * Fix importing settings from older versions on web.
 * Fix a Mac-specific issue when loading track .meta files.
+* Fix an error in the easy bite fishing hack.
 
 #### New Speedups
 * The first text box from each carpenter in the Thieves' Hideout is skipped.
