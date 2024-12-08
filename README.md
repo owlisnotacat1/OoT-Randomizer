@@ -118,6 +118,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * New setting to speed up the boat ride in the Shadow Temple.
 * New `Require Lens of Truth for Treasure Chest Game` setting.
 * New option `Market Big Poes` for the `Misc. Hints` setting.
+* New setting `Shuffle Ganon's Tower Entrance` to allow shuffling the boss entrance to Ganon himself.
 
 #### Bug fixes
 * Ocarina buttons required to play the Song of Time are now part of the `path of time` goal.
