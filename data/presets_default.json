@@ -2334,6 +2334,7 @@
         "empty_dungeons_count": 2,
         "shuffle_interior_entrances": "off",
         "shuffle_hideout_entrances": false,
+        "shuffle_gerudo_fortress_heart_piece": "vanilla",
         "shuffle_grotto_entrances": false,
         "shuffle_dungeon_entrances": "all",
         "shuffle_bosses": "off",
