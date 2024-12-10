@@ -1177,7 +1177,14 @@ typedef struct {
     uint16_t          changing;                 /* 0x01E4 */
     uint16_t          screen_prev_idx;          /* 0x01E6 */
     uint16_t          screen_idx;               /* 0x01E8 */
-    char              unk_03_[0x001E];          /* 0x01EA */
+    uint16_t          pageSwitchTimer;          /* 0x01EA */ 
+    uint16_t          unk_1EC;                  /* 0x01EC */ 
+    float             unk_1F0;                  /* 0x01F0 */
+    float             unk_1F4;                  /* 0x01F4 */
+    float             unk_1F8;                  /* 0x01F8 */
+    float             unk_1FC;                  /* 0x01FC */
+    float             unk_200;                  /* 0x0200 */
+    float             unk_204;                  /* 0x0204 */
     uint16_t          alpha;                    /* 0x0208 */
     int16_t           offset_y;                 /* 0x020A */
     char              unk_04_[0x0008];          /* 0x020C */
@@ -1892,7 +1899,11 @@ typedef enum {
     /* 16 */ PAUSE_STATE_16,
     /* 17 */ PAUSE_STATE_17,
     /* 18 */ PAUSE_STATE_CLOSING, // Animate the pause menu closing
-    /* 19 */ PAUSE_STATE_RESUME_GAMEPLAY // Handles returning to normal gameplay once the pause menu is visually closed
+    /* 19 */ PAUSE_STATE_RESUME_GAMEPLAY, // Handles returning to normal gameplay once the pause menu is visually closed
+                 PAUSE_STATE_RETURN_TO_TITLE_PROMPT_TIMER,
+             PAUSE_STATE_RETURN_TO_TITLE_PROMPT,
+             PAUSE_STATE_REUTRN_TO_TITLE,
+             
 } PauseState;
 
 // Sub-states of PAUSE_STATE_MAIN
