@@ -1,5 +1,7 @@
 #pragma once
 
+#include "z64.h"
+
 typedef signed char s8;
 typedef short s16;
 typedef int s32;
@@ -61,13 +63,6 @@ typedef enum TimerId {
     /* 1 */ TIMER_ID_SUB, // See `subTimerState` and `subTimerSeconds`
     /* 2 */ TIMER_ID_MAX
 } TimerId;
-
-typedef enum RespawnMode {
-    /* 0x00 */ RESPAWN_MODE_DOWN,   /* Normal Void Outs */
-    /* 0x01 */ RESPAWN_MODE_RETURN, /* Grotto Returnpoints */
-    /* 0x02 */ RESPAWN_MODE_TOP,    /* Farore's Wind */
-    /* 0x03 */ RESPAWN_MODE_MAX
-} RespawnMode;
 
 Vec3f gSfxDefaultPos = {0.0f, 0.0f, 0.0f};
 char gSfxDefaultReverb = 0;
@@ -236,17 +231,6 @@ typedef struct Save {
     /* 0x18 */ s32 bgsDayCount; // increments with totalDays, can be cleared with `Environment_ClearBgsDayCount`
     /* 0x1C */ SaveInfo info; // "information"
 } Save;
-
-typedef struct RespawnData {
-    /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s16 yaw;
-    /* 0x0E */ s16 playerParams;
-    /* 0x10 */ s16 entranceIndex;
-    /* 0x12 */ u8 roomIndex;
-    /* 0x13 */ s8 data;
-    /* 0x14 */ u32 tempSwchFlags;
-    /* 0x18 */ u32 tempCollectFlags;
-} RespawnData; // size = 0x1C
 
 typedef struct SaveContext {
     /* 0x0000 */ Save save; // "memory"
