@@ -129,6 +129,7 @@ issue. You should always Hard Reset to avoid this issue entirely.
 * Fix importing settings from older versions on web.
 * Fix a Mac-specific issue when loading track .meta files.
 * Fix an error in the easy bite fishing hack.
+* The randomizer no longer ignores errors when decompressing the base rom or compressing the randomized rom.
 
 #### New Speedups
 * The first text box from each carpenter in the Thieves' Hideout is skipped.
