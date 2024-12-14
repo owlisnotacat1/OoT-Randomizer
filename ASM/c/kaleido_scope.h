@@ -64,6 +64,20 @@ typedef enum TimerId {
     /* 2 */ TIMER_ID_MAX
 } TimerId;
 
+typedef struct RomFile {
+    /* 0x00 */ uintptr_t vromStart;
+    /* 0x04 */ uintptr_t vromEnd;
+} RomFile; // size = 0x8
+
+typedef struct KaleidoMgrOverlay {
+    /* 0x00 */ void* loadedRamAddr;
+    /* 0x04 */ RomFile file;
+    /* 0x0C */ void* vramStart;
+    /* 0x10 */ void* vramEnd;
+    /* 0x14 */ u32 offset; // loadedRamAddr - vramStart
+    /* 0x18 */ const char* name;
+} KaleidoMgrOverlay; // size = 0x1C
+
 Vec3f gSfxDefaultPos = {0.0f, 0.0f, 0.0f};
 char gSfxDefaultReverb = 0;
 f32 gSfxDefaultFreqAndVolScale = 1.0f; 
@@ -119,7 +133,7 @@ extern void Play_SaveSceneFlags(z64_game_t* play);
 extern void Interface_SetDoAction(z64_game_t* play, u16 action);
 extern void Interface_ChangeHudVisibilityMode(u16 hudVisibilityMode);
 extern void func_800F64E0(u8 arg0);
-extern s16 D_8082B25C;
+//extern s16 D_8082B25C;
 
 typedef struct ItemEquips {
     /* 0x00 */ u8 buttonItems[4];
