@@ -43,22 +43,11 @@ lbl_8009A15C:
     nop
     nop
 
-kaleidoScope_Dma_Continue_Prompt_Tex:
-    addiu   sp, sp, -0x0014
-    sw      ra, 0x0010(sp)
-    lui     a0, hi(CONTINUE_PROMPT_TEX)
-    addiu   a0, lo(CONTINUE_PROMPT_TEX)
-    lui     a1, 0x0086
-    addiu   a1, 0x2980
-    ori     a2, zero, 0x0980
-    jal     0x80000DF0
-    nop
-    lw      ra, 0x0010(sp)
-    jr      ra
-    addiu   sp, sp, 0x0014
-
 ICON_STATIC_GAME_OVER:
 .word 0x00000000
+
+CFG_SAVE_AND_QUIT:
+.byte 0x00
 
 .align 0x10
 CONTINUE_PROMPT_TEX:

@@ -7,6 +7,7 @@ extern SaveContext gSaveContext;
 extern KaleidoMgrOverlay gKaleidoMgrOverlayTable[];
 extern KaleidoMgrOverlay* gKaleidoMgrCurOvl;
 
+extern u8 CFG_SAVE_AND_QUIT;
 s16* D_8082B25C_RELOCATED;
 static s32 saveAndQuitConfig = 0;
 extern void* ICON_STATIC_GAME_OVER;
@@ -28,7 +29,7 @@ void kaleidoScope_Case7(z64_game_t* play) {
                 case 1:
                     if (play->common.input[0].pad_pressed.a) {
                         //config variable check here
-                        if (saveAndQuitConfig == 1) {
+                        if (CFG_SAVE_AND_QUIT == 0) {
 
                             if (play->pause_ctxt.prompt_choice != 0) {
                             
@@ -50,7 +51,7 @@ void kaleidoScope_Case7(z64_game_t* play) {
                                 gSaveContext.save.info.playerData.savedSceneId = play->scene_index;
                                 Sram_WriteSave_call(&play->unk_0F_[0x0207]);
                                 play->pause_ctxt.unk_1EC = 4;
-                                (*D_8082B25C_RELOCATED) = 3;
+                                (*D_8082B25C_RELOCATED) = 90;
                             }
                         } else {
                             if (play->pause_ctxt.prompt_choice != 0) {
