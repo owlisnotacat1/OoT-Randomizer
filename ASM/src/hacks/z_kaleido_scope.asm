@@ -136,7 +136,7 @@ KaleidoScope_Draw_Texture_Logic:
     sll     t8, t6, 2
     addu    a1, a1, t8
     lw      a1, -0x61C0(a1) ; relocate
-    ;logic for loading a0 if needed
+    ;logic for loading a1 if needed
     ori     at, zero, 0x13
     slt     at, at, s6
     ori     s6, zero, 0
