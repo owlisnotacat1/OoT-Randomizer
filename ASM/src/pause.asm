@@ -19,6 +19,9 @@ new_condition_check:
     beq     at, v0, lbl_8009A134
     addiu   at, at, 1
     beq     at, v0, lbl_8009A134
+    addiu   at, at, 2
+    beq     at, v0, lbl_8009A134
+    nop
 lbl_8009A124:
     slti    at, v0, 0x000B
     bne     at, zero, lbl_8009A158

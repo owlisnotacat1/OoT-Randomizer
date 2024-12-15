@@ -49,6 +49,10 @@ void before_game_state_update() {
     manage_music_changes();
     manage_uninvert_yaxis();
     display_misc_messages();
+    if (z64_game.common.input[0].pad_pressed.dr) {
+        
+        z64_file.energy = 0;
+    }
 }
 
 void after_game_state_update() {

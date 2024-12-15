@@ -3,11 +3,17 @@
 .headersize(0x808137C0 - 0x00BB11E0)
 
 .org 0x8082389C
-    b       kaleidoScope_yOffsetConditionHack
+    slti    at, v0, 20
+    beqz    at, 0x808238B0
     nop
+    b       kaleidoScope_Set_yOffset
     nop
+kaleidoScope_Set_yOffset_return:
+
+.org 0x80822538
+    b       kaleidoScope_draw_select_hack
     nop
-    nop
+kaleidoScope_draw_select_hack_return:
 
 .org 0x808264dc
     b       kaleidoScope_SwitchCaseHack ; this branch is to a modified version of the pauseCtx->state switch case
@@ -151,15 +157,21 @@ KaleidoScope_TexUnchanged:
     addiu   a2, zero, 0x0098
     b       KaleidoScope_Draw_ContinuePromtHack_return
     nop
-kaleidoScope_yOffsetConditionHack:
-    slti    at, v0, 20
-    beqz    at, 0x808238B0
-    nop
 kaleidoScope_Set_yOffset:
     lui     at, 0x0001
     ori     at, at, 0x0760
     addu    t0, a0, at
     addiu   t7, zero, 0x0050
     sh      t7, 0x020A(t0)
-    b       0x808238B0
+    b       kaleidoScope_Set_yOffset_return
+    nop
+kaleidoScope_draw_select_hack:
+    ori     at, zero, 0x0007
+    beq     a1, at, kaleidoScope_draw_select_hack_return
+    ori     at, zero, 0x0014
+    beq     a1, at, kaleidoScope_draw_select_hack_return
+    addiu   at, at, 0x0001
+    beq     a1, at, kaleidoScope_draw_select_hack_return
+    nop
+    b       0x808226d4
     nop

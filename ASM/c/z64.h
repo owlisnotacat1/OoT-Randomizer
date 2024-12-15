@@ -1900,9 +1900,10 @@ typedef enum {
     /* 17 */ PAUSE_STATE_17,
     /* 18 */ PAUSE_STATE_CLOSING, // Animate the pause menu closing
     /* 19 */ PAUSE_STATE_RESUME_GAMEPLAY, // Handles returning to normal gameplay once the pause menu is visually closed
-                 PAUSE_STATE_RETURN_TO_TITLE_PROMPT_TIMER,
+             PAUSE_STATE_RETURN_TO_TITLE_PROMPT_TIMER,
              PAUSE_STATE_RETURN_TO_TITLE_PROMPT,
              PAUSE_STATE_REUTRN_TO_TITLE,
+             PAUSE_STATE_RETURN_PROMPT_CLOSE,
              
 } PauseState;
 
