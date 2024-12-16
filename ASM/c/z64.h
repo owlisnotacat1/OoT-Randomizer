@@ -49,13 +49,44 @@
 #define REGS_PER_GROUP (REG_PAGES * REGS_PER_PAGE)
 #define REG_EDITOR_DATA ((int16_t*)0x801C6EA4)
 #define BASE_REG(n, r) REG_EDITOR_DATA[(n)*REGS_PER_GROUP + (r)]
-#define REG(r) BASE_REG(0, (r))
+#define  REG(r) BASE_REG(0, (r))
 #define SREG(r) BASE_REG(1, (r))
+#define OREG(r) BASE_REG(2, (r))
+#define PREG(r) BASE_REG(3, (r))
+#define QREG(r) BASE_REG(4, (r))
+#define MREG(r) BASE_REG(5, (r))
+#define YREG(r) BASE_REG(6, (r))
+#define DREG(r) BASE_REG(7, (r))
+#define UREG(r) BASE_REG(8, (r))
+#define IREG(r) BASE_REG(9, (r))
+#define ZREG(r) BASE_REG(10, (r))
+#define CREG(r) BASE_REG(11, (r))
+#define NREG(r) BASE_REG(12, (r))
+#define KREG(r) BASE_REG(13, (r))
+#define XREG(r) BASE_REG(14, (r))
+#define cREG(r) BASE_REG(15, (r))
+#define sREG(r) BASE_REG(16, (r))
+#define iREG(r) BASE_REG(17, (r))
+#define WREG(r) BASE_REG(18, (r))
+#define AREG(r) BASE_REG(19, (r))
+#define VREG(r) BASE_REG(20, (r))
+#define HREG(r) BASE_REG(21, (r))
+#define GREG(r) BASE_REG(22, (r))
+#define mREG(r) BASE_REG(23, (r))
+#define nREG(r) BASE_REG(24, (r))
+#define BREG(r) BASE_REG(25, (r))
+#define dREG(r) BASE_REG(26, (r))
+#define kREG(r) BASE_REG(27, (r))
+#define bREG(r) BASE_REG(28, (r))
 #define R_PAUSE_BG_PRERENDER_STATE SREG(94)
 
 #define ITEM_ICON_WIDTH 32
 #define ITEM_ICON_HEIGHT 32
 #define ITEM_ICON_SIZE (ITEM_ICON_WIDTH * ITEM_ICON_HEIGHT * 4) // The size in bytes of an item icon
+
+typedef struct {
+    float x, y, z;
+} Vec3f; // move this if needed elsewhere
 
 typedef struct {
   /* index of z64_col_type in scene file */
@@ -779,7 +810,14 @@ typedef struct {
   char            unk_14_[0x000A];          /* 0x13D6 */
   int8_t          seq_index;                /* 0x13E0 */
   int8_t          night_sfx;                /* 0x13E1 */
-  char            unk_15_[0x0012];          /* 0x13E2 */
+  char            button_status[5];         /* 0x13E2 */
+  char            forceRisingButtonAlphas;  /* 0x13E7 */
+  uint16_t        nextHudVisibilityMode;    /* 0x13E8 */
+  uint16_t        hudVisibilityMode;        /* 0x13EA */
+  uint16_t        hudVisibilityModeTimer;   /* 0x13EC */
+  uint16_t        prevHudVisibilityMode;    /* 0x13EE */
+  int16_t         magicState;               /* 0x13F0 */
+  int16_t         prevMagicState;           /* 0x13F2 */
   uint16_t        magic_meter_size;         /* 0x13F4 */
   char            unk_16_[0x0004];          /* 0x13F6 */
   uint16_t        event_inf[4];             /* 0x13FA */
@@ -1879,6 +1917,20 @@ typedef struct EnGSwitch
   /* 0x01C8 */ uint8_t effects[0x1130]; // EnGSwitchEffect[100]
 } EnGSwitch; // size = 0x12F8
 
+typedef struct RomFile {
+    /* 0x00 */ uintptr_t vromStart;
+    /* 0x04 */ uintptr_t vromEnd;
+} RomFile; // size = 0x8
+
+typedef struct KaleidoMgrOverlay {
+    /* 0x00 */ void* loadedRamAddr;
+    /* 0x04 */ RomFile file;
+    /* 0x0C */ void* vramStart;
+    /* 0x10 */ void* vramEnd;
+    /* 0x14 */ uint32_t offset; // loadedRamAddr - vramStart
+    /* 0x18 */ const char* name;
+} KaleidoMgrOverlay; // size = 0x1C
+
 typedef enum {
     /*  0 */ PAUSE_STATE_OFF,
     /*  1 */ PAUSE_STATE_WAIT_LETTERBOX, // Request no letterboxing and wait for it.
@@ -2473,6 +2525,11 @@ typedef void(*z64_Play_SetupRespawnPoint_proc)(z64_game_t *game, int32_t respawn
 #define ITEMGETINF_3A 0x3A
 #define ITEMGETINF_3B 0x3B
 #define ITEMGETINF_3F 0x3F
+
+extern void Audio_QueueSeqCmd(uint32_t cmd);
+#define SEQCMD_STOP_SEQUENCE(seqPlayerIndex, fadeOutDuration)                                 \
+    Audio_QueueSeqCmd((1 << 28) | 0xFF | ((uint8_t)(seqPlayerIndex) << 24) | \
+                      ((uint8_t)(fadeOutDuration) << 16))
 
 extern void Fault_AddHungupAndCrashImpl(const char* msg1, const char* msg2);
 extern int32_t sprintf(char* dst, char* fmt, ...);

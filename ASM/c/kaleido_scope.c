@@ -1,9 +1,6 @@
-#include "z64.h"
 #include "kaleido_scope.h"
 #include "stdint.h"
 
-
-extern SaveContext gSaveContext;
 extern KaleidoMgrOverlay gKaleidoMgrOverlayTable[];
 extern KaleidoMgrOverlay* gKaleidoMgrCurOvl;
 
@@ -12,6 +9,9 @@ s16* D_8082B25C_RELOCATED;
 static s32 saveAndQuitConfig = 0;
 extern void* ICON_STATIC_GAME_OVER;
 extern s32 DmaMgr_RequestSync(void* ram, uintptr_t vrom, size_t size);
+extern Vec3f z64_SfxDefaultPos;
+extern f32 z64_SfxDefaultFreqAndVolScale;
+extern u8 z64_SfxDefaultReverb;
 
 void kaleidoScope_Case7(z64_game_t* play) {
     z64_pause_ctxt_t* pauseCtx = &play->pause_ctxt;
@@ -28,47 +28,41 @@ void kaleidoScope_Case7(z64_game_t* play) {
 
                 case 1:
                     if (play->common.input[0].pad_pressed.a) {
-                        //config variable check here
                         if (CFG_SAVE_AND_QUIT == 0) {
-
                             if (play->pause_ctxt.prompt_choice != 0) {
-                            
                                 Interface_SetDoAction(play, DO_ACTION_NONE);
-                                gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
-                                    gSaveContext.buttonStatus[3] = 0;
-                                gSaveContext.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
+                                z64_file.button_status[0] = z64_file.button_status[1] = z64_file.button_status[2] =
+                                    z64_file.button_status[3] = 0;
+                                z64_file.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
                                 Interface_ChangeHudVisibilityMode(HUD_VISIBILITY_ALL);
                                 play->pause_ctxt.unk_1EC = 2;
                                 WREG(2) = -6240;
                                 YREG(8) = play->pause_ctxt.unk_204;
                                 func_800F64E0(0);
                             } else {
-                                Audio_PlaySfxGeneral(18467, &gSfxDefaultPos, 4,
-                                                     &gSfxDefaultFreqAndVolScale, &gSfxDefaultFreqAndVolScale,
-                                                     &gSfxDefaultReverb);
+                                Audio_PlaySfxGeneral(18467, &z64_SfxDefaultPos, 4,
+                                                     &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultFreqAndVolScale,
+                                                     &z64_SfxDefaultReverb);
                                 Play_SaveSceneFlags(play);
 
-                                gSaveContext.save.info.playerData.savedSceneId = play->scene_index;
+                                z64_file.scene_index = play->scene_index;
                                 Sram_WriteSave_call(&play->unk_0F_[0x0207]);
                                 play->pause_ctxt.unk_1EC = 4;
                                 (*D_8082B25C_RELOCATED) = 90;
                             }
                         } else {
                             if (play->pause_ctxt.prompt_choice != 0) {
-                                // no
                                 play->pause_ctxt.prompt_choice = 0;
-                                Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                                                     &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+                                Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+                                                     &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
                                 play->pause_ctxt.state = PAUSE_STATE_RETURN_TO_TITLE_PROMPT;
                                 DmaMgr_RequestSync(ICON_STATIC_GAME_OVER, 0x00860000, 0x3300);
-                                //gameOverCtx->state++;
                             } else {
-                                // yes 
-                                Audio_PlaySfxGeneral(18467, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                                                     &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+                                Audio_PlaySfxGeneral(18467, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+                                                     &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
                                 play->pause_ctxt.prompt_choice = 0;
                                 Play_SaveSceneFlags(play);
-                                gSaveContext.save.info.playerData.savedSceneId = play->scene_index;
+                                z64_file.scene_index = play->scene_index;
                                 Sram_WriteSave_call(&play->unk_0F_[0x0207]);
                                 play->pause_ctxt.state = PAUSE_STATE_RETURN_TO_TITLE_PROMPT_TIMER;
                                 (*D_8082B25C_RELOCATED) = 3;
@@ -83,9 +77,9 @@ void kaleidoScope_Case7(z64_game_t* play) {
                         WREG(2) = -6240;
                         YREG(8) = play->pause_ctxt.unk_204;
                         func_800F64E0(0);
-                        gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
-                            gSaveContext.buttonStatus[3] = 0;
-                        gSaveContext.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
+                        z64_file.button_status[0] = z64_file.button_status[1] = z64_file.button_status[2] =
+                            z64_file.button_status[3] = 0;
+                        z64_file.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
                         Interface_ChangeHudVisibilityMode(HUD_VISIBILITY_ALL);
                     }
                     break;
@@ -94,9 +88,9 @@ void kaleidoScope_Case7(z64_game_t* play) {
                         if (play->common.input[0].pad_pressed.b || play->common.input[0].pad_pressed.a ||
                             play->common.input[0].pad_pressed.s || (--(*D_8082B25C_RELOCATED) == 0)) {
                             Interface_SetDoAction(play, DO_ACTION_NONE);
-                            gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
-                            gSaveContext.buttonStatus[3] = 0;
-                            gSaveContext.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
+                            z64_file.button_status[0] = z64_file.button_status[1] = z64_file.button_status[2] =
+                            z64_file.button_status[3] = 0;
+                            z64_file.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
                             Interface_ChangeHudVisibilityMode(HUD_VISIBILITY_ALL);
                             play->pause_ctxt.unk_1EC = 5;
                             WREG(2) = -6240;
@@ -150,30 +144,28 @@ void kaleidoScope_Case7(z64_game_t* play) {
 
 void kaleidoScope_Case21(z64_game_t* play) {
     z64_pause_ctxt_t* pauseCtx = &play->pause_ctxt;
-    Input* input = &play->common.input[0];
 
     if (play->common.input[0].pad_pressed.a || play->common.input[0].pad_pressed.s) {
         if (play->pause_ctxt.prompt_choice == 0) {
-            Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                                 &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+            //Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+            //                     &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
             Interface_SetDoAction(play, DO_ACTION_NONE);
             play->pause_ctxt.unk_1EC = 2;
             WREG(2) = -6240;
             YREG(8) = play->pause_ctxt.unk_204;
             func_800F64E0(0);
-            gSaveContext.buttonStatus[0] = gSaveContext.buttonStatus[1] = gSaveContext.buttonStatus[2] =
-                gSaveContext.buttonStatus[3] = 0;
-            gSaveContext.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
+            z64_file.button_status[0] = z64_file.button_status[1] = z64_file.button_status[2] =
+                z64_file.button_status[3] = 0;
+            z64_file.hudVisibilityMode = HUD_VISIBILITY_NO_CHANGE;
             Interface_ChangeHudVisibilityMode(HUD_VISIBILITY_ALL);
             play->pause_ctxt.state = PAUSE_STATE_SAVE_PROMPT;
             return;
         } else {
-            Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                 &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+            Audio_PlaySfxGeneral(NA_SE_SY_DECIDE, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+                 &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
             func_800F64E0(0);
-            // returns to title
-            //SEQCMD_STOP_SEQUENCE(0, 10);
-            //SEQCMD_STOP_SEQUENCE(3, 10);
+            SEQCMD_STOP_SEQUENCE(0, 5);
+            SEQCMD_STOP_SEQUENCE(3, 5);
             play->pause_ctxt.state = PAUSE_STATE_REUTRN_TO_TITLE;
         }
     }
@@ -188,23 +180,8 @@ void kaleidoScope_Case20(z64_game_t* play) {
     } else if (((*D_8082B25C_RELOCATED) <= 80) &&
                (play->common.input[0].pad_pressed.a || play->common.input[0].pad_pressed.s)) {
         play->pause_ctxt.state = PAUSE_STATE_RETURN_TO_TITLE_PROMPT;
-        //func_800F64E0(0);
     }
 }
-
-//void KaleidoScopeCall_Draw(z64_game_t* play) {
-//    KaleidoMgrOverlay* kaleidoScopeOvl = &gKaleidoMgrOverlayTable[0];
-//
-//    if (R_PAUSE_BG_PRERENDER_STATE >= PAUSE_BG_PRERENDER_READY) {
-//        if (((play->pause_ctxt.state >= PAUSE_STATE_OPENING_1) && (play->pause_ctxt.state <= PAUSE_STATE_SAVE_PROMPT)) ||
-//            ((play->pause_ctxt.state == PAUSE_STATE_RETURN_TO_TITLE_PROMPT) || (play->pause_ctxt.state == PAUSE_STATE_RETURN_TO_TITLE_PROMPT_TIMER)) ||
-//            ((play->pause_ctxt.state >= PAUSE_STATE_11) && (play->pause_ctxt.state <= PAUSE_STATE_CLOSING))) {
-//            if (gKaleidoMgrCurOvl == kaleidoScopeOvl) {
-//                sKaleidoScopeDrawFunc(play);
-//            }
-//        }
-//    }
-//}
 
 static s16 D_8082A6E0[] = { 100, 255 };
 
@@ -215,12 +192,12 @@ void KaleidoScope_UpdatePrompt(z64_game_t* play) {
     if (((play->pause_ctxt.state == PAUSE_STATE_SAVE_PROMPT) && (play->pause_ctxt.unk_1EC == 1)) ||
         (play->pause_ctxt.state == PAUSE_STATE_14) || (play->pause_ctxt.state == PAUSE_STATE_16) || (play->pause_ctxt.state == PAUSE_STATE_RETURN_TO_TITLE_PROMPT)) {
         if ((play->pause_ctxt.prompt_choice == 0) && (stickAdjX >= 30)) {
-            Audio_PlaySfxGeneral(NA_SE_SY_CURSOR, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                                 &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+            Audio_PlaySfxGeneral(NA_SE_SY_CURSOR, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+                                 &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
             play->pause_ctxt.prompt_choice = 4;
         } else if ((play->pause_ctxt.prompt_choice != 0) && (stickAdjX <= -30)) {
-            Audio_PlaySfxGeneral(NA_SE_SY_CURSOR, &gSfxDefaultPos, 4, &gSfxDefaultFreqAndVolScale,
-                                 &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+            Audio_PlaySfxGeneral(NA_SE_SY_CURSOR, &z64_SfxDefaultPos, 4, &z64_SfxDefaultFreqAndVolScale,
+                                 &z64_SfxDefaultFreqAndVolScale, &z64_SfxDefaultReverb);
             play->pause_ctxt.prompt_choice = 0;
         }
 
