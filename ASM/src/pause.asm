@@ -1,15 +1,15 @@
 KaleidoScopeCall_Draw:
-    addiu   sp, sp, 0xFFE8           
+    addiu   sp, sp, 0xFFE8
     sw      ra, 0x0014(sp)
-    lui     t6, 0x8012                 
-    lw      t6, -0x4600(t6)            
-    lui     v0, 0x0001                 
+    lui     t6, 0x8012
+    lw      t6, -0x4600(t6)
+    lui     v0, 0x0001
     addu    v0, v0, a0
-    lh      t7, 0x0190(t6)             
+    lh      t7, 0x0190(t6)
     slti    at, t7, 0x0003
     bnel    at, zero, lbl_8009A15C
     lw      ra, 0x0014(sp)
-    lhu     v0, 0x0934(v0)             
+    lhu     v0, 0x0934(v0)
     slti    at, v0, 0x0004
     bne     at, zero, new_condition_check
     slti    at, v0, 0x0008
@@ -28,19 +28,19 @@ lbl_8009A124:
     slti    at, v0, 0x0013
     beq     at, zero, lbl_8009A158
 lbl_8009A134:
-    lui     t9, 0x8010                 
-    lw      t9, -0x1B44(t9)            
-    lui     t8, 0x8010                 
-    addiu   t8, t8, 0xE480             
+    lui     t9, 0x8010
+    lw      t9, -0x1B44(t9)
+    lui     t8, 0x8010
+    addiu   t8, t8, 0xE480
     bne     t8, t9, lbl_8009A158
-    lui     t9, 0x8012                 
-    lw      t9, -0x2FBC(t9)            
+    lui     t9, 0x8012
+    lw      t9, -0x2FBC(t9)
     jalr    t9, ra
     nop
 lbl_8009A158:
     lw      ra, 0x0014(sp)
 lbl_8009A15C:
-    addiu   sp, sp, 0x0018           
+    addiu   sp, sp, 0x0018
     jr      ra
     nop
     nop
