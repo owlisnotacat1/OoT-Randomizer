@@ -69,7 +69,7 @@ void kaleidoScope_Case7(z64_game_t* play) {
                                 DmaMgr_RequestSync(ICON_STATIC_GAME_OVER, 0x00860000, 0x3300);
                             }
                         }
-                        
+
                     } else if (play->common.input[0].pad_pressed.s ||
                                 play->common.input[0].pad_pressed.b) {
                         Interface_SetDoAction(play, DO_ACTION_NONE);

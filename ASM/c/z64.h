@@ -1215,8 +1215,8 @@ typedef struct {
     uint16_t          changing;                 /* 0x01E4 */
     uint16_t          screen_prev_idx;          /* 0x01E6 */
     uint16_t          screen_idx;               /* 0x01E8 */
-    uint16_t          pageSwitchTimer;          /* 0x01EA */ 
-    uint16_t          unk_1EC;                  /* 0x01EC */ 
+    uint16_t          pageSwitchTimer;          /* 0x01EA */
+    uint16_t          unk_1EC;                  /* 0x01EC */
     float             unk_1F0;                  /* 0x01F0 */
     float             unk_1F4;                  /* 0x01F4 */
     float             unk_1F8;                  /* 0x01F8 */
@@ -1956,7 +1956,7 @@ typedef enum {
              PAUSE_STATE_RETURN_TO_TITLE_PROMPT,
              PAUSE_STATE_REUTRN_TO_TITLE,
              PAUSE_STATE_RETURN_PROMPT_CLOSE,
-             
+
 } PauseState;
 
 // Sub-states of PAUSE_STATE_MAIN

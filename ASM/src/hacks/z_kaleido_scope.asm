@@ -17,7 +17,7 @@ kaleidoScope_draw_select_hack_return:
 
 .org 0x808264dc
     b       kaleidoScope_SwitchCaseHack ; this branch is to a modified version of the pauseCtx->state switch case
-    ori     at, at, 0x760           ; replaced code 
+    ori     at, at, 0x760           ; replaced code
     nop
     nop
     nop
@@ -75,12 +75,12 @@ KaleidoScope_Draw_ContinuePromtHack_return:
 
 .org 0x80827690
 kaleidoScope_SwitchCaseHack:
-    addu    s0, s1, at 
+    addu    s0, s1, at
     lui     at, 0x8082
     addiu   at, 0xA388
     lui     t8, hi(D_8082B25C_RELOCATED)
     addiu   t8, t8, lo(D_8082B25C_RELOCATED)
-    sw      at, 0(t8) 
+    sw      at, 0(t8)
     lhu     t8, 0x01D4(s0)          ; loads pauseCtx->state into t8
     ori     at, zero, 20
     beq     t8, at, @@case20        ; jumps to case 20 function (not working yet but thats not the issue)
@@ -107,7 +107,7 @@ kaleidoScope_SwitchCaseHack:
 @@case22:
     b       0x808287D8              ; jumps to case 17
     nop
-    
+
 ;0x8039CAA4
 KaleidoScope_DrawPages_ConditionHack:
     addiu   at, zero, 7
