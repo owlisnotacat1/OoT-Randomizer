@@ -24,9 +24,9 @@
     nop
 
 .org 0x808264dc
-    lui     a1, 0x8082
+    lui     a1, hi(0x8082a388)
     jal     kaleidoScope_SwitchCaseHack ; this branch is to a modified version of the pauseCtx->state switch case
-    addiu   a1, 0xA388
+    addiu   a1, lo(0x8082a388)
     beq     at, v0, 0x808287D8 ; jump to case 17 if v0 is 2
     nop
     beqz    v0, 0x80828BE4 ; jump to return if v0 is 0 else continue flow
